@@ -29,32 +29,61 @@ body {
 	width: 80%;
 }
 
+.search-form {
+	margin: 0 auto;
+	padding: 12px 6px;
+	text-align: center;
+	width: 100%;
+}
+
+.search-form input[type='text'] {
+	border-radius: 3%;
+	font-size: 17px;
+	width: 300px;
+}
+
+.search-form button {
+	border-radius: 3%;
+	border: 1px;
+	font-size: 15px;
+	line-height: 140%;
+	text-align: center;
+	width: 120px;
+}
+
 .tv-show {
+	background: #eaeaea;
 	overflow: hidden;
 	margin-bottom: 15px;
 	padding: 10 px;
 	width: 100%;
 }
 
-.tv-show::hover {
-	background: #fff;
+.tv-show .img-container {
+	width: 20%;
 }
 
 .tv-show img {
-	max-width: 100px;
+	padding: 10px 15px;
+	max-width: 100%;
 }
 
 .tv-show .info,
-.tv-show .image {
+.tv-show .img-container {
 	display: inline-block;
 }
 
 .tv-show .info {
 	padding-left: 20px;
+	width: 75%;
 }
 
 .left {
 	float: left;
+}
+
+.right {
+	float: right;
 }
 
 #app-footer {

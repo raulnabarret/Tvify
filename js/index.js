@@ -5,7 +5,9 @@ $(document).ready(function () {
  */
  	$("#app-body").find('form').submit(function (ev) {
  		ev.preventDefault()
- 		console.log('hola')
+
+ 		var query = $(this).find('input[type=text]').val()
+
  	}) 
 
  	

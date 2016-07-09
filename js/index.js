@@ -26,15 +26,17 @@ $(document).ready(function () {
  		success: function (data, textStatus, xhr) {
 
  			$tvShowsContainer = $('#app-body').find('.tv-shows')
- 			
- 			data.forEach(function (show) {
+ 			$tvShowsContainer.find('.loader').remove()
 
+ 			data.forEach(function (show) {
  				var article = template.replace(':name:', show.name)
  										.replace(':summary:', show.summary)
  										.replace(':img:', show.image.medium)
  										.replace(':img alt:', show.name + " cover")
  			
- 				$tvShowsContainer.append($(article))
+				var $article = $(article)
+				$article.hide()			
+ 				$tvShowsContainer.append($article.slideDown())
  			})
  		}
  	})

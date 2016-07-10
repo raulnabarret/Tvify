@@ -1,15 +1,7 @@
 $(document).ready(function () {
+	
+	var $tvShowsContainer = $('#app-body').find('.tv-shows')
 
- 	/*
-		Submit search form
-	 */
-
- 	$("#app-body").find('form').submit(function (ev) {
- 		
- 		ev.preventDefault()
- 		var query = $(this).find('input[type=text]').val()
-
- 	})
 
  	var template = '<article class="tv-show">'+
 						'<div class="left img-container">'+
@@ -21,26 +13,70 @@ $(document).ready(function () {
 						'</div>'+
 					'</article>'
 
- 	$.ajax({
- 		url: 'http://api.tvmaze.com/shows',
- 		success: function (data, textStatus, xhr) {
+	/*
+		Render TV Shows on HTML
+	*/
 
- 			$tvShowsContainer = $('#app-body').find('.tv-shows')
- 			$tvShowsContainer.find('.loader').remove()
 
- 			data.forEach(function (show) {
- 				var article = template.replace(':name:', show.name)
- 										.replace(':summary:', show.summary)
- 										.replace(':img:', show.image.medium)
- 										.replace(':img alt:', show.name + " cover")
- 			
-				var $article = $(article)
-				$article.hide()			
- 				$tvShowsContainer.append($article.slideDown())
- 			})
- 		}
+	function renderShows (data) {
+    	
+    	$tvShowsContainer.find('.loader').remove();
+
+ 		data.forEach(function (data) {
+ 			var article = template.replace(':name:', data.name)
+ 									.replace(':summary:', data.summary)
+ 									.replace(':img:', data.image ? data.image.medium : '')
+ 									.replace(':img alt:', data.name + " cover")
+ 		
+			var $article = $(article)
+			$article.hide()			
+ 			$tvShowsContainer.append($article.show())
+
+		})
+	}
+
+ 	/*
+		Search for TV Show
+	 */
+
+ 	$("#app-body").find('form').submit(function (ev) {
+ 		
+ 		ev.preventDefault()
+ 		var query = $(this).find('input[type=text]').val()
+
+ 		$tvShowsContainer.find('.tv-show').remove()
+      	var $loader = $('<div class="loader">');
+      	$loader.appendTo($tvShowsContainer);
+
+ 		$.ajax({
+ 			url: 'http://api.tvmaze.com/search/shows',
+ 			data: { q: query },
+ 			success: function (res, textStatus, xhr) {
+
+ 				$loader.remove();
+
+ 				var shows = res.map(function (element) {
+ 					return element.show
+ 				})
+
+ 				renderShows(shows)
+
+ 			}
+ 		})
  	})
 
+ 	/*
+ 		Display all TV Shows
+ 	*/
 
- 	
-})
+ 	if (!localStorage.shows) {
+	 	$.ajax('http://api.tvmaze.com/shows').then(function (shows, textStatus, xhr) {
+	 		$tvShowsContainer.find('.loader').remove()
+	 		localStorage.shows = JSON.stringify(shows)
+	 		renderShows(shows)
+	 	})
+ 	} else {
+ 		renderShows(JSON.parse(localStorage.shows))
+ 	}
+
+ })

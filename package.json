@@ -5,8 +5,8 @@
   "main": "index.js",
   "scripts": {
     "public": "mkdir -p public",
-    "build-js": "browserify -t [ babelify --presets [ es2015 ] ] js/index.js > public/app.js",
-    "copy-files": "cp css/styles.css public/app.css && cp css/normalize.css public/normalize.css && cp index.html public/index.html",
+    "build-js": "NODE_PATH=. browserify -t [ babelify --presets [ es2015 ] ] src/index.js > public/app.js",
+    "copy-files": "cp src/css/styles.css public/app.css && cp src/css/normalize.css public/normalize.css && cp src/index.html public/index.html",
     "build": "npm run public && npm run build-js && npm run copy-files",
     "serve": "serve public"
   },
@@ -21,11 +21,13 @@
   },
   "homepage": "https://github.com/raulnabarret/Tvify#readme",
   "dependencies": {
-    "jquery": "^2.1.4"
+    "jquery": "^2.1.4",
+    "page": "^1.7.1",
+    "qs": "^6.2.0"
   },
   "devDependencies": {
     "babel-preset-es2015": "^6.9.0",
     "babelify": "^7.3.0",
-    "browserify": "^13.0.1"  
+    "browserify": "^13.0.1"
   }
 }

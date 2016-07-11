@@ -10,13 +10,13 @@ $(document).ready(function () {
 						'<div class="right info">'+
 							'<h1>:name:</h1>'+
 							'<p>:summary:</p>'+
+							'<button class="like">⭐</button>'+
 						'</div>'+
 					'</article>'
 
 	/*
 		Render TV Shows on HTML
 	*/
-
 
 	function renderShows (data) {
     	
@@ -29,8 +29,7 @@ $(document).ready(function () {
  									.replace(':img alt:', data.name + " cover")
  		
 			var $article = $(article)
-			$article.hide()			
- 			$tvShowsContainer.append($article.show())
+ 			$tvShowsContainer.append($article.fadeIn(1500))
 
 		})
 	}

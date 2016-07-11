@@ -17,10 +17,11 @@ body {
 	z-index: 3;
 }
 
-#app-header h1 {
+#app-header h1 a {
 	color: #fff;
 	line-height: 10vh;
 	margin: 0;
+	text-decoration: none;
 }
 
 #app-body {

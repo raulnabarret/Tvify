@@ -2,7 +2,10 @@
 	Module Dependencies
 */
 
-var $ = require('jquery')
+
+// var $ = require('jquery')
+//ES6
+import $ from 'jquery'
 
 $(document).ready(function () {
 	

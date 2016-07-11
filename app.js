@@ -1,105 +1,92 @@
 (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
-/*
-	Module Dependencies
-*/
+'use strict';
 
-var $ = require('jquery')
+var _jquery = require('jquery');
 
-$(document).ready(function () {
-	
-	var $tvShowsContainer = $('#app-body').find('.tv-shows')
+var _jquery2 = _interopRequireDefault(_jquery);
 
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
- 	var template = '<article class="tv-show">'+
-						'<div class="left img-container">'+
-							'<img src=":img:" alt=":img alt:"></img>'+
-						'</div>'+
-						'<div class="right info">'+
-							'<h1>:name:</h1>'+
-							'<p>:summary:</p>'+
-							'<button class="like">⭐</button>'+
-						'</div>'+
-					'</article>'
+(0, _jquery2.default)(document).ready(function () {
 
-	/*
-		Render TV Shows on HTML
-	*/
+  var $tvShowsContainer = (0, _jquery2.default)('#app-body').find('.tv-shows');
 
-	function renderShows (data) {
-    	
-    	$tvShowsContainer.find('.loader').remove();
+  var template = '<article class="tv-show">' + '<div class="left img-container">' + '<img src=":img:" alt=":img alt:"></img>' + '</div>' + '<div class="right info">' + '<h1>:name:</h1>' + '<p>:summary:</p>' + '<button class="like">⭐</button>' + '</div>' + '</article>';
 
- 		data.forEach(function (data) {
- 			var article = template.replace(':name:', data.name)
- 									.replace(':summary:', data.summary)
- 									.replace(':img:', data.image ? data.image.medium : '')
- 									.replace(':img alt:', data.name + " cover")
- 		
-			var $article = $(article)
- 			$tvShowsContainer.append($article.fadeIn(1500))
+  /*
+  	Render TV Shows on HTML
+  */
 
-		})
-	}
+  function renderShows(data) {
 
- 	/*
-		Search for TV Show
-	 */
+    $tvShowsContainer.find('.loader').remove();
 
- 	$("#app-body").find('form').submit(function (ev) {
- 		
- 		ev.preventDefault()
- 		var query = $(this).find('input[type=text]').val()
+    data.forEach(function (data) {
+      var article = template.replace(':name:', data.name).replace(':summary:', data.summary).replace(':img:', data.image ? data.image.medium : '').replace(':img alt:', data.name + " cover");
 
- 		$tvShowsContainer.find('.tv-show').remove()
-      	var $loader = $('<div class="loader">');
-      	$loader.appendTo($tvShowsContainer);
+      var $article = (0, _jquery2.default)(article);
+      $tvShowsContainer.append($article.fadeIn(1500));
+    });
+  }
 
- 		$.ajax({
- 			url: 'http://api.tvmaze.com/search/shows',
- 			data: { q: query },
- 			success: function (res, textStatus, xhr) {
+  /*
+  Search for TV Show
+  */
 
- 				$loader.remove();
+  (0, _jquery2.default)("#app-body").find('form').submit(function (ev) {
 
- 				var shows = res.map(function (element) {
- 					return element.show
- 				})
+    ev.preventDefault();
+    var query = (0, _jquery2.default)(this).find('input[type=text]').val();
 
- 				renderShows(shows)
+    $tvShowsContainer.find('.tv-show').remove();
+    var $loader = (0, _jquery2.default)('<div class="loader">');
+    $loader.appendTo($tvShowsContainer);
 
- 			}
- 		})
- 	})
+    _jquery2.default.ajax({
+      url: 'http://api.tvmaze.com/search/shows',
+      data: { q: query },
+      success: function success(res, textStatus, xhr) {
 
- 	/*
- 		Display all TV Shows
- 	*/
+        $loader.remove();
 
- 	if (!localStorage.shows) {
-	 	$.ajax('http://api.tvmaze.com/shows').then(function (shows, textStatus, xhr) {
-	 		$tvShowsContainer.find('.loader').remove()
-	 		localStorage.shows = JSON.stringify(shows)
-	 		renderShows(shows)
-	 	})
- 	} else {
- 		renderShows(JSON.parse(localStorage.shows))
- 	}
+        var shows = res.map(function (element) {
+          return element.show;
+        });
 
+        renderShows(shows);
+      }
+    });
+  });
 
- 	/*
+  /*
+  	Display all TV Shows
+  */
 
- 	*/
+  if (!localStorage.shows) {
+    _jquery2.default.ajax('http://api.tvmaze.com/shows').then(function (shows, textStatus, xhr) {
+      $tvShowsContainer.find('.loader').remove();
+      localStorage.shows = JSON.stringify(shows);
+      renderShows(shows);
+    });
+  } else {
+    renderShows(JSON.parse(localStorage.shows));
+  }
 
+  /*
+  	*/
 
- 	$tvShowsContainer.on('click', 'button.like', function (event) {
+  $tvShowsContainer.on('click', 'button.like', function (event) {
 
- 		var $this = $(this);
+    var $this = (0, _jquery2.default)(this);
 
- 		$this.closest('.tv-show').toggleClass('liked')
+    $this.closest('.tv-show').toggleClass('liked');
+  });
+}); /*
+    	Module Dependencies
+    */
 
- 	})
-
- })
+// var $ = require('jquery')
+//ES6
 
 },{"jquery":2}],2:[function(require,module,exports){
 /*!

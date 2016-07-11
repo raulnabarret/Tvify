@@ -80,7 +80,7 @@ body {
 	width: 75%;
 }
 
-.tv-show .like {
+.tv-show button.like {
 	background: transparent;
 	border: 0;
 	cursor: pointer;
@@ -89,6 +89,15 @@ body {
 	outline: 0;
 	right: 15px;
 	top: 15px;
+	transition: all .3s ease;
+}
+
+.tv-show.liked {
+	background:	#fff684;
+}
+
+.tv-show.liked button.like {
+	transform: scale(1.4);
 }
 
 .left {

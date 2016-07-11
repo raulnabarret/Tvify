@@ -78,4 +78,18 @@ $(document).ready(function () {
  		renderShows(JSON.parse(localStorage.shows))
  	}
 
+
+ 	/*
+
+ 	*/
+
+
+ 	$tvShowsContainer.on('click', 'button.like', function (event) {
+
+ 		var $this = $(this);
+
+ 		$this.closest('.tv-show').toggleClass('liked')
+
+ 	})
+
  })
